@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
 
 // 1. Use mongoose to establish a connection to MongoDB
-mongoose.connect('mongodb://localhost:3000/glossary');
+mongoose.connect('mongodb://localhost/glossary', {useNewUrlParser: true, useUnifiedTopology: true});
 
   // 2nd arg in mongoose docs:
-  // , {useNewUrlParser: true, useUnifiedTopology: true});
 
   // const db = mongoose.connection;
 
@@ -25,11 +24,37 @@ const Word = mongoose.model('Word', wordsSchema);
   // export the function that saves new words
 
 module.exports = {
-
   save: (word) => {
+    // word = {word.name, word.definition}
+    let newWord = new Word(word);
+    return newWord.save();
+  },
 
-    // Model.create()
+  updateOne: (word) => {
+    return Word.updateOne({name: word.name}, {definition: word.definition});
+  },
+
+  deleteOne: (word) => {
+    return Word.deleteOne({name: word.name});
+  },
+
+  retrieveAll: () => {
+    return Word.find({});
   }
 }
+// const save = (word) => {
+//   // word = {word.name, word.definition}
+//   console.log('hit save!')
+//   let newWord = new Word(word);
+//   return newWord.save();
+// };
+
+// const retrieveAll = () => {
+//   console.log('hit retrieveAll!')
+//   return Word.find({});
+// };
+
+// module.exports.save = save;
+// module.exports.retrieveAll = retrieveAll;
 
 // 4. Import the models into any modules that need them
