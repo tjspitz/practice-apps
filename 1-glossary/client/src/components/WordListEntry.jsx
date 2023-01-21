@@ -1,25 +1,7 @@
 import React from "react";
 import WordUtils from './WordUtils.jsx';
 
-const WordListEntry = ({ word, edit, remove, updated, setUpdated }) => {
-
-  // ========== STATES ==========
-
-
-  // ========== EFFECTS ==========
-
-
-  // ========== HELPERS ==========
-
-
-  // ========== HANDLERS ==========
-  // const handleEdit = (event) => {
-  //   console.log('handleEdit: ', event)
-  // };
-
-  // const handleRemove = (event) => {
-  //   console.log('handleRemove: ', event)
-  // };
+const WordListEntry = ({ word, updated, setUpdated }) => {
 
   // ========== COMPONENT ==========
   return (
@@ -31,13 +13,7 @@ const WordListEntry = ({ word, edit, remove, updated, setUpdated }) => {
         Definition: {word.definition}
       </div>
       <div>
-        <WordUtils
-          word={word}
-          edit={edit}
-          remove={remove}
-          updated={updated}
-          setUpdated={setUpdated}
-        />
+        <WordUtils word={word} updated={updated} setUpdated={setUpdated} />
       </div>
     </span>
   );

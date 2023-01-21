@@ -1,19 +1,7 @@
 import React from 'react';
 import WordListEntry from './WordListEntry.jsx';
 
-const WordList = ({ edit, remove, wordList, updated, setUpdated }) => {
-
-  // ========== STATES ==========
-
-
-  // ========== EFFECTS ==========
-
-
-  // ========== HELPERS ==========
-
-
-  // ========== HANDLERS ==========
-
+const WordList = ({ wordList, updated, setUpdated }) => {
 
   // ========== COMPONENT ==========
   return (
@@ -25,8 +13,6 @@ const WordList = ({ edit, remove, wordList, updated, setUpdated }) => {
         return <WordListEntry
           key={i}
           word={word}
-          edit={edit}
-          remove={remove}
           updated={updated}
           setUpdated={setUpdated}
         />

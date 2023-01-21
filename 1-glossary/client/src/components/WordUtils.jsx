@@ -1,28 +1,37 @@
 import React from "react";
 import axios from 'axios';
+import { useState } from 'react';
 
-const WordUtils = ({ word, edit, updated, setUpdated }) => {
+const WordUtils = ({ word, updated, setUpdated }) => {
 
   // ========== STATES ==========
-
-
-  // ========== EFFECTS ==========
-
-
-  // ========== HELPERS ==========
-
+  const [defEdit, setDefEdit] = useState('')
 
   // ========== HANDLERS ==========
   const handleEdit = (event) => {
-    console.log('handleEdit: ', event);
+    // console.log('handleEdit: ', event);
+    let newDef = prompt('Please enter a new definition...', word.definition);
 
+    if (newDef !== null) {
+      axios.patch('/api', {
+        name: word.name,
+        definition: newDef
+      })
+        .then(response => {
+          console.log('app edit SUCCESS');
+          setUpdated(!updated);
+        })
+        .catch(error => {
+          console.log('app edit ERROR: ', error);
+        });
+    }
   };
 
   const handleRemove = (event) => {
     console.log('handleRemove: ', word);
     let oldWord = word.name;
 
-    axios.delete('/api', {data: word})
+    axios.delete('/api', { data: word })
       .then(response => {
         console.log('app delete SUCCESS');
 
@@ -32,13 +41,12 @@ const WordUtils = ({ word, edit, updated, setUpdated }) => {
       .catch(error => {
         console.log('app delete ERROR: ', error);
       });
-
   };
 
   // ========== COMPONENT ==========
   return (
     <div>
-      <button name="edit" onClick={handleEdit}>Edit {word.name}'s description</button>
+      <button name="edit" onClick={handleEdit}>Edit {word.name}'s definition</button>
       <button name="remove" onClick={handleRemove}>Remove {word.name}</button>
     </div>
   );

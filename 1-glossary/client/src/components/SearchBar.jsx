@@ -1,25 +1,19 @@
 import React from "react";
-import {useState} from "react";
+import { useState } from "react";
 
 
-const SearchBar = ({wordList, setWordList}) => {
+const SearchBar = ({ wordList, setWordList }) => {
 
   // ========== STATES ==========
   const [searchChars, setSearchChars] = useState('');
 
-  // ========== EFFECTS ==========
-
-
-  // ========== HELPERS ==========
-
   // ========== HANDLERS ==========
-  const search = () => {
+  const onSearchSubmit = (e) => {
     setWordList(wordList.filter(word => word.name.includes(searchChars)))
-    clear()
   }
 
-  const clear = () => {
-    setSearchChars('')
+  const onClearSearch = () => {
+    setSearchChars('');
   }
 
   const onSearchChange = (event) => {
@@ -29,11 +23,11 @@ const SearchBar = ({wordList, setWordList}) => {
   // ========== COMPONENT ==========
   return (
     <div className="search-field">
-        <label>Search up a word:
-          <input placeholder="mash keys..." onChange={onSearchChange}/>
-        </label>
-        <button className="btn search" onClick={search}>Find words</button>
-        <button className="btn clear" onClick={clear}>Clear search</button>
+      <label>Search a word:
+        <input value={searchChars} required={true} placeholder="mash keys..." onChange={onSearchChange} />
+      </label>
+      <button className="btn search" onClick={onSearchSubmit}>Find words</button>
+      <button className="btn clear" onClick={onClearSearch}>Clear search</button>
     </div>
   );
 };
