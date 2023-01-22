@@ -36,12 +36,13 @@ app.use(express.urlencoded({ extended: true }));
 app.post('/checkout', (req, res) => {
   // if req.session_id already exists, kill the request(?)
 
-
   const {
     firstname, lastname, email, password,
     street, city, state, zip,
-    cc, exp, cvv, bill_zip
-  } = req.body;
+    cc, exp, ccv, bill_zip
+  } = req.body.data;
+
+  console.log(req.body.data)
 
   db.queryAsync(
     "INSERT INTO user (firstname, lastname, email, password) VALUES(?, ?, ?, ?)", [firstname, lastname, email, password]
@@ -57,7 +58,7 @@ app.post('/checkout', (req, res) => {
       console.log('hit .then #2: ', res);
 
       return db.queryAsync(
-        "INSERT INTO payment (cc, exp, cvv, bill_zip) VALUES(?, ?, ?, ?)", [cc, exp, cvv, bill_zip]
+        "INSERT INTO payment (cc, exp, ccv, bill_zip) VALUES(?, ?, ?, ?)", [cc, exp, ccv, bill_zip]
       );
     })
     .then((data) => res.status(201).send(console.log('success!')))
