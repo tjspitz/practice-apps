@@ -10,7 +10,7 @@ const AddWord = ({ updated, setUpdated }) => {
 
   // ========== HANDLERS ==========
   const addWord = (word) => {
-    // console.log('word: ', word)
+    event.preventDefault();
 
     axios.post('/api', {
       name: wordChars,
@@ -35,7 +35,6 @@ const AddWord = ({ updated, setUpdated }) => {
   }
 
   const handleClear = (event) => {
-
     setWordChars('');
     setDefChars('');
   };
@@ -50,9 +49,9 @@ const AddWord = ({ updated, setUpdated }) => {
         <label>Enter a definition:
           <input value={defChars} required={true} placeholder="define your word..." onChange={handleDefChange} />
         </label>
-        <button className="btn add-word" >Add new word</button>
+        <button type="submit" className="btn add-word" >Add new word</button>
+        <button type="button" className="btn clear" onClick={handleClear}>Clear inputs</button>
       </form>
-      <button className="btn clear" onClick={handleClear}>Clear inputs</button>
     </div>
   );
 }

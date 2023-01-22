@@ -29,7 +29,10 @@ app.get('/api', (req, res) => {
     console.log('server get SUCCESS');
     res.status(200).send(wordList);
   })
-  .catch(err => console.log('server get ERR: ', err));
+  .catch(err => {
+    console.log('server get ERR: ', err);
+    res.status(500).send();
+  })
 });
 
 app.post('/api', (req, res) => {
@@ -38,7 +41,10 @@ app.post('/api', (req, res) => {
     console.log('server post SUCCESS');
     res.status(201).send(data);
   })
-  .catch(err => console.log('server post ERR: ', err));
+  .catch(err => {
+    console.log('server post ERR: ', err);
+    res.status(500).send();
+  })
 });
 
 app.patch('/api', (req, res) => {
@@ -47,7 +53,10 @@ app.patch('/api', (req, res) => {
     console.log('server patch SUCCESS');
     res.status(200).send(data)
   })
-  .catch(err => console.log('server patch ERR: ', err));
+  .catch(err => {
+    console.log('server patch ERR: ', err);
+    res.status(500).send();
+  })
 });
 
 app.delete('/api', (req, res) => {
@@ -56,7 +65,10 @@ app.delete('/api', (req, res) => {
     console.log('server delete SUCCESS');
     res.status(200).send(data)
   })
-  .catch(err => console.log('server delete ERR: ', err));
+  .catch(err => {
+    console.log('server delete ERR: ', err);
+    res.status(500).send();
+  })
 });
 
 app.listen(process.env.PORT);

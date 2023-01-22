@@ -9,7 +9,7 @@ const WordUtils = ({ word, updated, setUpdated }) => {
 
   // ========== HANDLERS ==========
   const handleEdit = (event) => {
-    // console.log('handleEdit: ', event);
+    event.preventDefault();
     let newDef = prompt('Please enter a new definition...', word.definition);
 
     if (newDef !== null) {
@@ -28,6 +28,7 @@ const WordUtils = ({ word, updated, setUpdated }) => {
   };
 
   const handleRemove = (event) => {
+    event.preventDefault();
     console.log('handleRemove: ', word);
     let oldWord = word.name;
 

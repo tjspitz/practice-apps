@@ -11,7 +11,7 @@ const WordList = ({ wordList, updated, setUpdated }) => {
         <div>There are no words here yet...</div>}
       {wordList.map((word, i) => {
         return <WordListEntry
-          key={i}
+          key={word._id}
           word={word}
           updated={updated}
           setUpdated={setUpdated}

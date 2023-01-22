@@ -9,15 +9,18 @@ const SearchBar = ({ wordList, setWordList }) => {
 
   // ========== HANDLERS ==========
   const onSearchSubmit = (e) => {
+    e.preventDefault();
     setWordList(wordList.filter(word => word.name.includes(searchChars)))
   }
 
-  const onClearSearch = () => {
+  const onClearSearch = (e) => {
+    e.preventDefault();
     setSearchChars('');
   }
 
-  const onSearchChange = (event) => {
-    setSearchChars(event.target.value);
+  const onSearchChange = (e) => {
+    e.preventDefault();
+    setSearchChars(e.target.value);
   };
 
   // ========== COMPONENT ==========
