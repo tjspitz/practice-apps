@@ -3,6 +3,9 @@ const express = require("express");
 const path = require("path");
 const sessionHandler = require("./middleware/session-handler");
 const logger = require("./middleware/logger");
+const morgan = require('morgan');
+const cors = require('cors');
+
 
 // Establishes connection to the database on server start
 const db = require("./db");
@@ -19,13 +22,52 @@ app.use(logger);
 // Serves up all static and generated assets in ../client/dist.
 app.use(express.static(path.join(__dirname, "../client/dist")));
 
-/**** 
- * 
- * 
+app.use(express.json())
+app.use(morgan('dev'));
+app.use(cors());
+app.use(express.urlencoded({ extended: true }));
+/****
+ *
+ *
  * Other routes here....
  *
- * 
+ *
  */
+app.post('/checkout', (req, res) => {
+  // if req.session_id already exists, kill the request(?)
+
+  // series of INSERT INTO statements, putting data into correct tables from req body
+  const {
+    firstname, lastname, email, password,
+    street, city, state, zip,
+    cc, exp, cvv, bill_zip
+  } = req.body;
+
+  db.queryAsync(
+    "INSERT INTO user (firstname, lastname, email, password) VALUES(?, ?, ?, ?)", [firstname, lastname, email, password]
+  )
+    .then((res) => {
+      console.log('hit .then #1: ', res);
+
+      return db.queryAsync(
+        "INSERT INTO address (street, city, state, zip)VALUES(?, ?, ?, ?)", [street, city, state, zip]
+      );
+    })
+    .then((res) => {
+      console.log('hit .then #2: ', res);
+
+      return db.queryAsync(
+        "INSERT INTO payment (cc, exp, cvv, bill_zip) VALUES(?, ?, ?, ?)", [cc, exp, cvv, bill_zip]
+      );
+    })
+    .then((data) => res.status(201).send())
+    .catch((err) => {
+      console.log('failasaurus rex in server/index.js POST: ', err);
+      res.status(500).send();
+    })
+
+})
+
 
 app.listen(process.env.PORT);
 console.log(`Listening at http://localhost:${process.env.PORT}`);
