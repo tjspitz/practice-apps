@@ -36,7 +36,7 @@ app.use(express.urlencoded({ extended: true }));
 app.post('/checkout', (req, res) => {
   // if req.session_id already exists, kill the request(?)
 
-  // series of INSERT INTO statements, putting data into correct tables from req body
+
   const {
     firstname, lastname, email, password,
     street, city, state, zip,
@@ -60,12 +60,11 @@ app.post('/checkout', (req, res) => {
         "INSERT INTO payment (cc, exp, cvv, bill_zip) VALUES(?, ?, ?, ?)", [cc, exp, cvv, bill_zip]
       );
     })
-    .then((data) => res.status(201).send())
+    .then((data) => res.status(201).send(console.log('success!')))
     .catch((err) => {
       console.log('failasaurus rex in server/index.js POST: ', err);
       res.status(500).send();
     })
-
 })
 
 
