@@ -1,9 +1,10 @@
-// const router = require('express').Router();
-// const controllers = require('./controllers');
+const express = require('express');
+const ctrl = require('./controllers');
+const router = express.Router();
 
-// // router needs methods attached (once the methods exist)
-// // router.get('/', controllers.get)
-// // router.post('/', controllers.post)
-// // router.delete('/', controllers.delete)
+router.get('/api', ctrl.get);
+router.post('/api', ctrl.post);
+router.patch('/api', ctrl.patch);
+router.delete('/api', ctrl.remove);
 
-// module.exports = router;
+module.exports = router;

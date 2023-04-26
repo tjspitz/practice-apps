@@ -1,21 +1,28 @@
-// const db = require('../db');
+const mongoose = require('mongoose');
+const db = require('../db');
 
-// module.exports = {
-//   postWord: (word) => {
-//     // save a new word & descr DOCUMENT to the WORDS collection
-//   },
+const wordsSchema = new mongoose.Schema({
+  name: { type: String, lowercase: true, unique: true },
+  definition: { type: String, lowercase: true, maxLlength: 255 },
+});
 
-//   updateWord: (word) => {
-//     // change existing word's details (aka client-side edit)
-//   },
+const Word = mongoose.model('Word', wordsSchema);
 
-//   deleteWord: (word) => {
-//     // delete this DOCUMENT from the database
+const save = (word) => {
+  let newWord = new Word(word);
+  return newWord.save();
+};
 
-//   },
+const updateOne = (word) => {
+  return Word.updateOne({ name: word.name }, { definition: word.definition });
+};
 
-//   getAll: (wordList) => {
-//     // get the updated COLLECTION of WORDS from the database
+const deleteOne = (word) => {
+  return Word.deleteOne({ name: word.name });
+};
 
-//   }
-// }
+const retrieveAll = () => {
+  return Word.find({});
+};
+
+module.exports = { save, updateOne, deleteOne, retrieveAll };
