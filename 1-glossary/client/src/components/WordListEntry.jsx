@@ -1,5 +1,5 @@
-import React from "react";
-import WordUtils from "./WordUtils.jsx";
+import React from 'react';
+import WordUtils from './WordUtils.jsx';
 
 const WordListEntry = ({ word, updated, setUpdated }) => {
   // ========== COMPONENT ==========

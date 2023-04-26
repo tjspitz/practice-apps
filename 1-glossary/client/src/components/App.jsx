@@ -1,9 +1,9 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import SearchBar from "./SearchBar.jsx";
-import WordList from "./WordList.jsx";
-import AddWord from "./AddWord.jsx";
+import React from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import SearchBar from './SearchBar.jsx';
+import WordList from './WordList.jsx';
+import AddWord from './AddWord.jsx';
 
 const App = () => {
   // ========== STATES ==========
@@ -18,13 +18,13 @@ const App = () => {
   // ========== HELPERS ==========
   const render = () => {
     axios
-      .get("/api")
+      .get('/api')
       .then((response) => {
         setWordList(response.data);
-        console.log("app get SUCCESS");
+        console.log('app get SUCCESS');
       })
       .catch((error) => {
-        console.log("app get ERROR: ", error);
+        console.log('app get ERROR: ', error);
       });
   };
 

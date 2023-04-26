@@ -1,9 +1,9 @@
-import React from "react";
-import { useState } from "react";
+import React from 'react';
+import { useState } from 'react';
 
 const SearchBar = ({ wordList, setWordList }) => {
   // ========== STATES ==========
-  const [searchChars, setSearchChars] = useState("");
+  const [searchChars, setSearchChars] = useState('');
 
   // ========== HANDLERS ==========
   const onSearchSubmit = (e) => {
@@ -13,7 +13,7 @@ const SearchBar = ({ wordList, setWordList }) => {
 
   const onClearSearch = (e) => {
     e.preventDefault();
-    setSearchChars("");
+    setSearchChars('');
   };
 
   const onSearchChange = (e) => {

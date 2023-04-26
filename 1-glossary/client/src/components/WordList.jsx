@@ -1,5 +1,5 @@
-import React from "react";
-import WordListEntry from "./WordListEntry.jsx";
+import React from 'react';
+import WordListEntry from './WordListEntry.jsx';
 
 const WordList = ({ wordList, updated, setUpdated }) => {
   // ========== COMPONENT ==========

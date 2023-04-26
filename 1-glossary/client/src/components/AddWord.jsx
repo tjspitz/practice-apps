@@ -1,27 +1,27 @@
-import React from "react";
-import { useState } from "react";
-import axios from "axios";
+import React from 'react';
+import { useState } from 'react';
+import axios from 'axios';
 
 const AddWord = ({ updated, setUpdated }) => {
   // ========== STATES ==========
-  const [wordChars, setWordChars] = useState("");
-  const [defChars, setDefChars] = useState("");
+  const [wordChars, setWordChars] = useState('');
+  const [defChars, setDefChars] = useState('');
 
   // ========== HANDLERS ==========
   const addWord = (word) => {
     event.preventDefault();
 
     axios
-      .post("/api", {
+      .post('/api', {
         name: wordChars,
         definition: defChars,
       })
       .then((response) => {
-        console.log("app post SUCCESS");
+        console.log('app post SUCCESS');
         setUpdated(!updated);
       })
       .catch((error) => {
-        console.log("app post ERROR: ", error);
+        console.log('app post ERROR: ', error);
       });
     handleClear();
   };
@@ -35,8 +35,8 @@ const AddWord = ({ updated, setUpdated }) => {
   };
 
   const handleClear = (event) => {
-    setWordChars("");
-    setDefChars("");
+    setWordChars('');
+    setDefChars('');
   };
 
   // ========== COMPONENT ==========
