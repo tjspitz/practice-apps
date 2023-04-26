@@ -1,10 +1,10 @@
 /**
- * 
+ *
  * Based on Josh Comeau's CSS Reset: https://www.joshwcomeau.com/css/custom-css-reset/.
- * 
+ *
  * Feel free to edit this file as needed.
- * 
- */ 
+ *
+ */
 
 *,
 *::before,
@@ -22,9 +22,11 @@ body {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  background-image: url('https://thumbs.dreamstime.com/b/vector-seamless-pattern-book-pencil-blue-background-98007535.jpg');
 }
 
 img,
@@ -57,4 +59,57 @@ main {
   max-width: 840px;
   padding: 16px;
   margin: auto;
+  background-color: honeydew;
+}
+
+.title {
+  font: bold small-caps 2.5rem "Segoe UI";
+  padding: 1rem;
+}
+
+.container > * {
+  font-family: "Helvetica Neue";
+}
+
+.container {
+  display: flex;
+  padding: 1rem;
+}
+
+.input-label {
+  padding: 0 0.5rem;
+}
+
+.input-field {
+  margin-left: 0.5rem;
+}
+
+.btn {
+  padding: 0 0.5rem;
+  margin: 1rem 3rem 1rem 0;
+  background-color: cadetblue;
+  color: antiquewhite;
+  border-radius: 0.5rem;
+}
+
+.btn:hover {
+  background-color: antiquewhite;
+  color: cadetblue;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+
+.word-list {
+  font-size: 1.5rem;
+  font-variant: small-caps;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.word {
+  font-size: 1rem;
+  font-variant: normal;
+  font-style: normal;
+  font-weight: 400;
 }

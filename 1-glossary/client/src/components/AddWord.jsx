@@ -1,27 +1,27 @@
 import React from "react";
 import { useState } from "react";
-import axios from 'axios';
+import axios from "axios";
 
 const AddWord = ({ updated, setUpdated }) => {
-
   // ========== STATES ==========
-  const [wordChars, setWordChars] = useState('');
-  const [defChars, setDefChars] = useState('');
+  const [wordChars, setWordChars] = useState("");
+  const [defChars, setDefChars] = useState("");
 
   // ========== HANDLERS ==========
   const addWord = (word) => {
     event.preventDefault();
 
-    axios.post('/api', {
-      name: wordChars,
-      definition: defChars
-    })
-      .then(response => {
-        console.log('app post SUCCESS');
+    axios
+      .post("/api", {
+        name: wordChars,
+        definition: defChars,
+      })
+      .then((response) => {
+        console.log("app post SUCCESS");
         setUpdated(!updated);
       })
-      .catch(error => {
-        console.log('app post ERROR: ', error);
+      .catch((error) => {
+        console.log("app post ERROR: ", error);
       });
     handleClear();
   };
@@ -31,29 +31,47 @@ const AddWord = ({ updated, setUpdated }) => {
   };
 
   const handleDefChange = (event) => {
-    setDefChars(event.target.value)
-  }
+    setDefChars(event.target.value);
+  };
 
   const handleClear = (event) => {
-    setWordChars('');
-    setDefChars('');
+    setWordChars("");
+    setDefChars("");
   };
 
   // ========== COMPONENT ==========
   return (
-    <div className="add-word container">
+    <div>
       <form onSubmit={addWord}>
-        <label>Add new word:
-          <input value={wordChars} required={true} placeholder="new word name..." onChange={handleWordChange} />
+        <label className="input-label">
+          Add new word:
+          <input
+            className="input-field"
+            value={wordChars}
+            required={true}
+            placeholder="new word name..."
+            onChange={handleWordChange}
+          />
         </label>
-        <label>Enter a definition:
-          <input value={defChars} required={true} placeholder="define your word..." onChange={handleDefChange} />
+        <label className="input-label">
+          Enter a definition:
+          <input
+            className="input-field"
+            value={defChars}
+            required={true}
+            placeholder="define your word..."
+            onChange={handleDefChange}
+          />
         </label>
-        <button type="submit" className="btn add-word" >Add new word</button>
-        <button type="button" className="btn clear" onClick={handleClear}>Clear inputs</button>
+        <button type="submit" className="btn add-word">
+          Add new word
+        </button>
+        <button type="button" className="btn clear" onClick={handleClear}>
+          Clear inputs
+        </button>
       </form>
     </div>
   );
-}
+};
 
 export default AddWord;

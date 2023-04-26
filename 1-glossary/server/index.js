@@ -2,21 +2,15 @@ require("dotenv").config();
 const express = require("express");
 const path = require("path");
 // const cors = require('cors');
-// const routes = require('./routes.js');
 const {retrieveAll, save, updateOne, deleteOne} = require('./db');
 const morgan = require('morgan');
-// const bp = require('body-parser');
-
 const app = express();
 
-// Serves up all static and generated assets in ../client/dist.
-
-// app.use(cors());
 app.use(express.json());
-// app.use(bp.json())
 app.use(express.urlencoded({ extended: true}));
 app.use(morgan('dev'));
-// app.use('/', routes);
+
+// Serves up all static and generated assets in ../client/dist.
 
 app.use(express.static(path.join(__dirname, "../client/dist")));
 /****
