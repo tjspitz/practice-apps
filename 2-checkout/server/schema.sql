@@ -1,4 +1,4 @@
-DROP DATABASE checkout;
+DROP DATABASE IF EXISTS checkout;
 
 CREATE DATABASE checkout;
 
