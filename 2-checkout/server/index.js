@@ -1,12 +1,12 @@
-require("dotenv").config();
-const express = require("express");
-const path = require("path");
-const sessionHandler = require("./middleware/session-handler");
-const logger = require("./middleware/logger");
+require('dotenv').config();
+const express = require('express');
+const path = require('path');
+const sessionHandler = require('./middleware/session-handler');
+const logger = require('./middleware/logger');
 const morgan = require('morgan');
 const cors = require('cors');
 
-const db = require("./db");
+const db = require('./db');
 const app = express();
 
 // Adds `req.session_id` based on the incoming cookie value.
@@ -16,54 +16,61 @@ app.use(sessionHandler);
 // Logs the time, session_id, method, and url of incoming requests.
 app.use(logger);
 
-app.use(express.static(path.join(__dirname, "../client/dist")));
+app.use(express.static(path.join(__dirname, '../client/dist')));
 
-app.use(express.json())
+app.use(express.json());
 app.use(morgan('dev'));
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
-/****
- *
- *
- * Other routes here....
- *
- *
- */
-app.post('/checkout', (req, res) => {
-  // if req.session_id already exists, kill the request(?)
-  console.log('cookie? ', req.session_id);
 
+app.get('/checkout', (req, res) => {
   const {
-    firstname, lastname, email, password,
-    street, city, state, zip,
-    cc, exp, ccv, bill_zip
+    query: { cookie },
+  } = req;
+
+  db.queryAsync('SELECT * FROM user WHERE cookie = (?)', [cookie])
+    .then((data) => {
+      res.status(200).send(data[0]);
+    })
+    .catch((err) => res.sendStatus(500));
+});
+
+app.post('/checkout', (req, res) => {
+  const {
+    cookie,
+    firstname,
+    lastname,
+    email,
+    password,
+    street,
+    city,
+    state,
+    zip,
+    cc,
+    exp,
+    ccv,
+    bill_zip,
   } = req.body.data;
 
-  console.log(req.body.data)
-
   db.queryAsync(
-    "INSERT INTO user (firstname, lastname, email, password) VALUES(?, ?, ?, ?)", [firstname, lastname, email, password]
+    'INSERT INTO user (cookie, firstname, lastname, email, password) VALUES(?, ?, ?, ?, ?)',
+    [cookie, firstname, lastname, email, password]
   )
-    .then((res) => {
-      console.log('hit .then #1: ', res);
-
+    .then((update) => {
       return db.queryAsync(
-        "INSERT INTO address (street, city, state, zip)VALUES(?, ?, ?, ?)", [street, city, state, zip]
+        'INSERT INTO address (street, city, state, zip)VALUES(?, ?, ?, ?)',
+        [street, city, state, zip]
       );
     })
-    .then((res) => {
-      console.log('hit .then #2: ', res);
-
+    .then((update) => {
       return db.queryAsync(
-        "INSERT INTO payment (cc, exp, ccv, bill_zip) VALUES(?, ?, ?, ?)", [cc, exp, ccv, bill_zip]
+        'INSERT INTO payment (cc, exp, ccv, bill_zip) VALUES(?, ?, ?, ?)',
+        [cc, exp, ccv, bill_zip]
       );
     })
-    .then((data) => res.status(201).send(console.log('success!')))
-    .catch((err) => {
-      console.log('failasaurus rex in server/index.js POST: ', err);
-      res.status(500).send();
-    })
-})
+    .then(() => res.sendStatus(201))
+    .catch((err) => res.status(500).send(err));
+});
 
 app.listen(process.env.PORT);
 console.log(`Listening at http://localhost:${process.env.PORT}`);

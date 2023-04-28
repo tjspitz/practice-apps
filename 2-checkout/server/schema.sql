@@ -6,6 +6,7 @@ USE checkout;
 
 CREATE TABLE user (
   id INT NOT NULL AUTO_INCREMENT,
+  cookie VARCHAR(255) NOT NULL,
   firstname VARCHAR(255) NOT NULL,
   lastname VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
@@ -15,24 +16,24 @@ CREATE TABLE user (
 
 CREATE TABLE address (
   id INT NOT NULL AUTO_INCREMENT,
-  -- user_id INT NOT NULL,
+  user_id INT DEFAULT NULL,
   street VARCHAR(255) NOT NULL,
   city VARCHAR(255) NOT NULL,
   state VARCHAR(255) NOT NULL,
   zip VARCHAR(255) NOT NULL,
-  PRIMARY KEY (id)
-  -- FOREIGN KEY (user_id) REFERENCES user(id)
+  PRIMARY KEY (id),
+  FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
 CREATE TABLE payment (
   id INT NOT NULL AUTO_INCREMENT,
-  -- user_id INT NOT NULL,
+  user_id INT DEFAULT NULL,
   cc VARCHAR(255) NOT NULL,
   exp VARCHAR(255) NOT NULL,
   ccv VARCHAR(255) NOT NULL,
   bill_zip VARCHAR(255) NOT NULL,
-  PRIMARY KEY (id)
-  -- FOREIGN KEY (user_id) REFERENCES user(id)
+  PRIMARY KEY (id),
+  FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
 -- CREATE TABLE cart (
